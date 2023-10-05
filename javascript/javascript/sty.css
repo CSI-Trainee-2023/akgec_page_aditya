@@ -1,0 +1,54 @@
+body {
+    background-image:url('https://miro.medium.com/v2/resize:fit:1400/1*S8UogculWFLr3lVdLn05MA.jpeg');
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 500px;
+}
+
+#watch {
+    color: white;
+    font-size: 90px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    color: black;
+    border-radius: 90px;
+    font-size: 40px;
+    padding: 0px 15px;
+    margin: 30px;
+    text-decoration: none;
+}
+
+button:hover {
+    cursor: pointer;
+    box-shadow: 1px 2px 3px 4px greenyellow;
+    color:red;
+    background-color: bisque;
+    text-shadow: 1px 2px 3px blue;
+}
+
+.purple {
+    background-color: pink;
+}
+
+.red {
+    background-color: rgb(180, 12, 12);
+}
+
+.blue{
+    background-color: rgb(35, 47, 176);
+}
+
+#lapReset {
+    background-color: aquamarine;
+    border:2px solid red;
+}
+
+#laps {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    font-family: Georgia, 'Times New Roman', serif;
+}

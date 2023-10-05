@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StopWatch</title>
+    <link rel="stylesheet" href="sty.css">
+    
+</head>
+
+<body>
+    <div id="stopWatch">
+        <div id="watch">
+            <span id="hour">00</span>
+            <span>:</span>
+            <span id="minute">00</span>
+            <span>:</span>
+            <span id="second">00</span>
+            <span>.</span>
+            <span id="millisecond">00</span>
+        </div>
+        <button id="lapReset" onclick="lapReset()">Lap</button>
+        <button id="startStopResume" class="purple" onclick="startStopResume()">Start</button>
+        <p id="laps"></p>
+    </div>
+    <script>
+        let run = false;
+let isRunning = false;
+let milliSecond = 0;
+let second = 0;
+let minute = 0;
+let hour = 0;
+let timer = false;
+let lap = "";
+let lapCount = 0;
+document.getElementById("lapReset").disabled = true;
+
+function toStart() {
+    isRunning = true;
+    run = true;
+    timer = true;
+    document.getElementById("startStopResume").textContent = "Stop";
+    document.getElementById("lapReset").disabled = false;
+    document.getElementById("startStopResume").classList.replace("purple", "red");
+    timing();
+}
+
+function toStop() {
+    timer = false;
+    isRunning = false;
+    document.getElementById("startStopResume").textContent = "Resume";
+    document.getElementById("startStopResume").classList.replace("red", "blue");
+    document.getElementById("lapReset").textContent = "Reset";
+}
+function toResume() {
+    run = true;
+    timer = true;
+    isRunning = true;
+    document.getElementById("startStopResume").classList.replace("blue", "red");
+    document.getElementById("lapReset").textContent = "Lap";
+    document.getElementById("startStopResume").textContent = "Stop";
+    timing();
+}
+
+function toLap() {
+
+    if (lapCount == 0) {
+        document.getElementById("laps").innerHTML = "LAPS" + "<br>" + "<br>";
+    }
+    lapCount++;
+    lap = lapCount + ") " + hour + ":" + minute + ":" + second + "." + milliSecond;
+    document.getElementById("laps").innerHTML += (lap + "<br>");
+}
+
+function toReset() {
+    timer = false;
+    run = false;
+    milliSecond = 0;
+    second = 0;
+    minute = 0;
+    hour = 0;
+    lapCount = 0;
+    document.getElementById("hour").innerHTML = "00";
+    document.getElementById("minute").innerHTML = "00";
+    document.getElementById("second").innerHTML = "00";
+    document.getElementById("millisecond").innerHTML = "00";
+    document.getElementById("laps").innerHTML = "";
+    document.getElementById("startStopResume").textContent = "Start";
+    document.getElementById("lapReset").textContent = "Lap";
+    document.getElementById("lapReset").disabled = true;
+    document.getElementById("startStopResume").classList.replace("blue", "purple");
+}
+
+function startStopResume() {
+    if (isRunning == false && run == false) {
+        toStart();
+    }
+    else if (isRunning == true && run == true) {
+        toStop();
+    }
+    else {
+        toResume();
+    }
+}
+
+function lapReset() {
+    if (isRunning == false) {
+        toReset();
+    }
+    else {
+        toLap();
+    }
+}
+
+
+function timing() {
+    if (timer == true) {
+        milliSecond++;
+        if (milliSecond == 100) {
+            milliSecond = 0;
+            second++;
+        }
+        if (second == 60) {
+            second = 0;
+            minute++;
+        }
+        if (minute == 60) {
+            second = 0;
+            minute = 0;
+            hour++;
+        }
+        document.getElementById("hour").innerHTML = hour;
+        document.getElementById("minute").innerHTML = minute;
+        document.getElementById("second").innerHTML = second;
+        document.getElementById("millisecond").innerHTML = milliSecond;
+        setTimeout("timing()", 10);
+        window.addEventListener("keydown", checkkey);
+    }
+}
+
+document.addEventListener("keydown", e => { if (e.ctrlKey && e.key.toLowerCase() === "s") { toStart() } });
+document.addEventListener("keydown", e => { if (e.ctrlKey && e.key.toLowerCase() === "x") { toStop() } });
+document.addEventListener("keydown", e => { if (e.ctrlKey && e.key.toLowerCase() === "r") { toReset() } });
+document.addEventListener("keydown", e => { if (e.ctrlKey && e.key.toLowerCase() === "l") { toLap() } });
+document.addEventListener("keydown", e => { if (e.ctrlKey && e.key.toLowerCase() === "p") { toResume() } });
+    </script>
+</body>
+
+</html>
